@@ -10,15 +10,17 @@ export const errorHandler = (
 ) => {
   if (err instanceof RequestValidationError) {
     console.log("handling this error as a requeest validation error");
-    const formattedErrors = err.errors.map((error) => {
-      return { message: error.msg, field: error.param };
-    });
-    return res.status(400).send({ errors: formattedErrors });
+    // const formattedErrors = err.errors.map((error) => {
+    //   return { message: error.msg, field: error.param };
+    // });
+    // return res.status(400).send({ errors: formattedErrors });
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 
   if (err instanceof DatabaseConnectionError) {
     console.log("handling this error as a db connection error");
-    return res.status(500).send({ errors: [{ message: err.reason }] });
+    // return res.status(500).send({ errors: [{ message: err.reason }] });
+    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 
   // catch-all error
