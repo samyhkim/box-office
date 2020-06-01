@@ -1,23 +1,12 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 
+import { currentUser } from "../middlewares/current-user";
+
 const router = express.Router();
 
-router.get("/api/users/currentuser", (req, res) => {
-  // Must check "!req.session" first to ensure that this
-  // route went through cookie session middleware and
-  // created a req.session property.
-  // "!req.session?.jwt" same as below
-  if (!req.session || !req.session.jwt) {
-    return res.send({ currentUser: null });
-  }
-
-  try {
-    const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!);
-    res.send({ currentUser: payload });
-  } catch (err) {
-    res.send({ currentUser: null });
-  }
+router.get("/api/users/currentuser", currentUser, (req, res) => {
+  res.send({ currentUser: req.currentUser || null }); // don't send back "undefined"
 });
 
 export { router as currentUserRouter };
