@@ -1,4 +1,6 @@
-/* Any time a user comes into a route with this current-user
+/* Middleware to extract the JWT payload and set it on 'req.currentUser".
+ **
+ ** Any time a user comes into a route with this current-user
  ** middleware applied to it, this middleware will attempt to
  ** find whether or not the user is logged in.
  **
