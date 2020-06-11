@@ -8,11 +8,19 @@ build:
   local:
     push: false
   artifacts:
-    - image: samyhkim/auth
+    - image: sykdevtest/auth
       context: auth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: "src/**/*.ts"
+            dest: .
+    - image: sykdevtest/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
             dest: .

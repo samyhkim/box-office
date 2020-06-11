@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: samyhkim/auth
+          image: sykdevtest/auth
           env:
             - name: JWT_KEY
               valueFrom:
