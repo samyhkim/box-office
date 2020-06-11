@@ -16,7 +16,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false, // JWT is already encrypted
-    secure: true, // user's connection must be HTTPS
+    secure: false, // user's connection must be HTTPS
   })
 );
 
