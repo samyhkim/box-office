@@ -1,6 +1,6 @@
 import express from "express";
 
-import { currentUser } from "../middlewares/current-user";
+import { currentUser } from "@tombolo/common";
 
 const router = express.Router();
 
