@@ -2,7 +2,9 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import { errorHandler, NotFoundError } from "@tombolo/common";
+import { errorHandler, NotFoundError, currentUser } from "@tombolo/common";
+
+import { createTicketRouter } from "./routes/new";
 
 const app = express();
 app.set("trust proxy", true); // resolves ingress-nginx proxy issues
@@ -13,6 +15,9 @@ app.use(
     secure: false, // user's connection must be HTTPS
   })
 );
+app.use(currentUser);
+
+app.use(createTicketRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
