@@ -9,7 +9,7 @@ it("has a route handler listening to /api/tickets for POST requests", async () =
 });
 
 it("can only be accessed if the user is signed in", async () => {
-  const response = await request(app).post("/api/tickets").send({}).expect(401);
+  await request(app).post("/api/tickets").send({}).expect(401);
 });
 
 it("returns a status other than 401 if the user is signed in", async () => {
@@ -17,8 +17,6 @@ it("returns a status other than 401 if the user is signed in", async () => {
     .post("/api/tickets")
     .set("Cookie", global.signin())
     .send({});
-
-  console.log(response.status);
 
   expect(response.status).not.toEqual(401);
 });
